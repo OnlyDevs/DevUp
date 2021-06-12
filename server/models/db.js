@@ -1,5 +1,5 @@
-const { Pool } = require("pg");
-const { PG_URI } = require("./env");
+const { Pool } = require('pg');
+const { PG_URI } = require('../env');
 
 // create a new pool here using the connection string above
 const pool = new Pool({
@@ -11,7 +11,7 @@ module.exports = {
 };
 
 // const test = async () => {
-//   console.log(await pool.query("SELECT NOW()"));
+//   console.log(await pool.query('SELECT NOW()'));
 // };
 
 // test();
