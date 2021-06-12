@@ -39,6 +39,30 @@ class Match {
     )`;
     return pool.query(query, [selfId, otherId]);
   }
+
+  getMatches(id) {
+    const query = `SELECT * FROM matches
+    WHERE date_match IS NOT NULL
+    AND (person1 = $1 OR person2 = $1)`;
+
+    return pool.query(query, [id]);
+  }
+
+  getIsLiked(id) {
+    const query = `SELECT * FROM matches 
+    WHERE date_match IS NULL
+    AND person2 = $1`;
+
+    return pool.query(query, [id]);
+  }
+
+  getLiked(id) {
+    const query = `SELECT * FROM matches 
+    WHERE date_match IS NULL
+    AND person1 = $1`;
+
+    return pool.query(query, [id]);
+  }
 }
 
 const MatchModel = new Match();

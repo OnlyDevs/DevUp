@@ -82,49 +82,13 @@ class User {
       params.current_project,
     ]);
   }
-  // const queryStr =
-  // "SELECT s.name, classification, average_height, average_lifespan,
-  // language, p.name AS homeworld FROM species s INNER JOIN
-  // planets p ON s.homeworld_id = p._id WHERE s._id = $1";
-  // u.id as id,
-  // u.username as username,
-  // u.bio as bio,
-  // u.languages as languages,
-  // u.current_project as current_project,
-  // u2.id as id2,
-  // u2.username as username2,
-  // u2.bio as bio2,
-  // u2.languages as languages2,
-  // u2.current_project as current_project2
-  // FROM matches m
-  // JOIN users u on u.id = m.person1
-  // JOIN users u2 on u2.id = m.person2
-  getMatches(id) {
-    const query = `SELECT * FROM matches
-    WHERE date_match IS NOT NULL
-    AND (person1 = $1 OR person2 = $1)`;
-
-    return pool.query(query, [id]);
-  }
-
-  getIsLiked(id) {
-    const query = `SELECT * FROM matches 
-    WHERE date_match IS NULL
-    AND person2 = $1`;
-
-    return pool.query(query, [id]);
-  }
-
-  getLiked(id) {
-    const query = `SELECT * FROM matches 
-    WHERE date_match IS NULL
-    AND person1 = $1`;
-
-    return pool.query(query, [id]);
-  }
 }
 
 const UserModel = new User();
+
+module.exports = {
+  UserModel,
+};
 
 // development
 // UserModel.getById(1).then(console.log)
@@ -138,6 +102,20 @@ const UserModel = new User();
 // UserModel.getIsLiked(1).then((res) => console.log(res.rows));
 // UserModel.getByIds([1, 2, 3]).then((res) => console.log(res.rows));
 
-module.exports = {
-  UserModel,
-};
+// const queryStr =
+// "SELECT s.name, classification, average_height, average_lifespan,
+// language, p.name AS homeworld FROM species s INNER JOIN
+// planets p ON s.homeworld_id = p._id WHERE s._id = $1";
+// u.id as id,
+// u.username as username,
+// u.bio as bio,
+// u.languages as languages,
+// u.current_project as current_project,
+// u2.id as id2,
+// u2.username as username2,
+// u2.bio as bio2,
+// u2.languages as languages2,
+// u2.current_project as current_project2
+// FROM matches m
+// JOIN users u on u.id = m.person1
+// JOIN users u2 on u2.id = m.person2
