@@ -3,7 +3,12 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.get('/:id', userController.getUser, (req, res) => {
+// development
+router.post('/', userController.createUser, (req, res) => {
+  res.status(200).json({});
+});
+
+router.get('/:id', userController.getUserById, (req, res) => {
   res.status(200).json({
     user: res.locals.user,
   });
@@ -12,7 +17,7 @@ router.get('/:id', userController.getUser, (req, res) => {
 router.patch(
   '/:id',
   userController.updateUser,
-  userController.getUser,
+  userController.getUserById,
   (req, res) => {
     res.status(200).json({
       user: res.locals.user,

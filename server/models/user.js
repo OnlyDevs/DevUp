@@ -3,13 +3,18 @@ const faker = require('faker');
 
 class User {
   createTable() {
-    const query = `CREATE TABLE IF NOT EXISTS users (
+    const query = `
+    CREATE TABLE 
+    IF NOT EXISTS 
+    users (
       id SERIAL PRIMARY KEY, 
-      username VARCHAR NOT NULL, 
+      username VARCHAR NOT NULL UNIQUE, 
       password VARCHAR NOT NULL, 
       bio VARCHAR, 
       languages VARCHAR,
-      current_project VARCHAR)`;
+      current_project VARCHAR,
+      githubId INT UNIQUE
+    )`;
 
     return pool.query(query);
   }
@@ -28,6 +33,12 @@ class User {
 
   getById(id) {
     const query = 'SELECT * FROM users WHERE users.id = $1';
+
+    return pool.query(query, [id]);
+  }
+
+  getByGithubId(id) {
+    const query = 'SELECT * FROM users WHERE users.githubId = $1';
 
     return pool.query(query, [id]);
   }
@@ -52,19 +63,22 @@ class User {
   }
 
   create(params) {
-    const query = `INSERT INTO users (
+    const query = `INSERT INTO 
+    users (
       username,
       password,
       bio,
       languages,
-      current_project)
-      VALUES ($1, $2, $3, $4, $5)`;
+      current_project,
+      githubId)
+      VALUES ($1, $2, $3, $4, $5, $6)`;
     return pool.query(query, [
       params.username,
       params.password,
       params.bio,
       params.languages,
       params.current_project,
+      params.githubId,
     ]);
   }
 
@@ -101,21 +115,3 @@ module.exports = {
 // UserModel.getMatches(1).then((res) => console.log(res.rows));
 // UserModel.getIsLiked(1).then((res) => console.log(res.rows));
 // UserModel.getByIds([1, 2, 3]).then((res) => console.log(res.rows));
-
-// const queryStr =
-// "SELECT s.name, classification, average_height, average_lifespan,
-// language, p.name AS homeworld FROM species s INNER JOIN
-// planets p ON s.homeworld_id = p._id WHERE s._id = $1";
-// u.id as id,
-// u.username as username,
-// u.bio as bio,
-// u.languages as languages,
-// u.current_project as current_project,
-// u2.id as id2,
-// u2.username as username2,
-// u2.bio as bio2,
-// u2.languages as languages2,
-// u2.current_project as current_project2
-// FROM matches m
-// JOIN users u on u.id = m.person1
-// JOIN users u2 on u2.id = m.person2

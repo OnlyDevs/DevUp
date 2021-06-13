@@ -19,4 +19,14 @@ class MatchController {
         next(err);
       });
   }
+
+  getIsLiked(req, res) {
+    next();
+  }
 }
+
+const matchController = new MatchController();
+
+module.exports = {
+  matchController,
+};
