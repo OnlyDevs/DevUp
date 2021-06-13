@@ -1,30 +1,41 @@
 const express = require('express');
 const path = require('path');
-const { userRouter, matchRouter } = require('./routes');
-const { UserModel, MatchModel } = require('./models');
+const cors = require('cors');
+const { userRouter, matchRouter, authRouter } = require('./routes');
+const { createTables } = require('./models');
+const { NODE_ENV } = require('./env');
 
 const app = express();
 
+// middleware
 app.use(express.json());
+app.use(cors());
 
-app.use(express.static(path.resolve(__dirname, '../client')));
+// static
+if (NODE_ENV === 'development') {
+  app.use(express.static(path.resolve(__dirname, './client-dev')));
+  app.use('/test', express.static(path.resolve(__dirname, './client-dev')));
+}
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 // routers
 app.use('/users', userRouter);
 app.use('/matches', matchRouter);
+app.use('/auth', authRouter);
 
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '../client/src/index.html'))
-);
-
+// 404
 app.use((req, res) => {
   res.sendStatus(404);
 });
 
-Promise.all([UserModel.createTable(), MatchModel.createTable()])
-  .then(() => {
-    // return Promise.all([UserModel.seed()]);
-  })
+// error
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.sendStatus(500);
+});
+
+// start
+createTables()
   .then(() => {
     app.listen(3001, () => {
       console.log('server started');
