@@ -7,7 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const ghCode = urlParams.get('code');
   if (ghCode) {
     const url = `http://localhost:3001/auth/github?code=${ghCode}`;
-    fetch(url, { method: 'POST' })
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: Math.random().toString(),
+        password: Math.random().toString(),
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.githubToken) {

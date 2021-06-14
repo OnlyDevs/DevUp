@@ -2,10 +2,10 @@ const axios = require('axios');
 const { GH_CLIENT_ID, GH_CLIENT_SECRET } = require('../env');
 
 class AuthController {
-  getGithubToken(req, res, next) {
+  createGithubToken(req, res, next) {
     const code = req.query.code;
     const url = `https://github.com/login/oauth/access_token?code=${code}&client_id=${GH_CLIENT_ID}&client_secret=${GH_CLIENT_SECRET}`;
-    axios
+    return axios
       .post(
         url,
         {},
@@ -33,7 +33,7 @@ class AuthController {
   }
 
   getGithubUser(req, res, next) {
-    axios
+    return axios
       .get('https://api.github.com/user', {
         headers: {
           Authorization: `token ${res.locals.githubToken}`,
