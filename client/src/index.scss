@@ -1,7 +1,520 @@
 * {
   margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 body {
-  background-color: grey;
+  height: 100%;
+  // background: #f4a0b4;
+  // background: linear-gradient(207deg, #f4a0b4 0%, #ffe7f2 80%);
+  // background: -webkit-linear-gradient(207deg, #f4a0b4 0%, #ffe7f2 80%);
+  // background: -moz-linear-gradient(207deg, #f4a0b4 0%, #ffe7f2 80%);
+}
+
+///////////////////////////////////////////////////////////////////
+////////////////////// HEADER NAV BAR //////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+#navHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 65px;
+  background-color: rgb(233, 82, 82);
+
+  z-index: 2;
+
+  background: #ef6686a6;
+  background: linear-gradient(90deg, #ef6687 0%, #ff9bb3c0 80%);
+  background: -webkit-linear-gradient(90deg, #fd9db4c4 0%, #ff7c9a 80%);
+  background: -moz-linear-gradient(
+    90deg,
+    #fd8ea8b6 0%rgba (255, 124, 155, 0.726) 9a 80%
+  );
+}
+
+#openUserProfile {
+  position: relative;
+  top: -16px;
+  left: 20px;
+  font-size: 1.4rem;
+  padding: 2px 10px 2px 10px;
+
+  border-radius: 20px;
+  border: 1px gray solid;
+
+  transition: all 0.4s;
+}
+
+#openUserProfile:hover {
+  opacity: 0.7;
+  transition: all 0.4s;
+}
+
+#navProfilePic {
+  width: 55px;
+  height: 55px;
+  border-radius: 200px;
+  border: none;
+  position: relative;
+  top: 4px;
+}
+
+.nav {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.textLogo {
+  font-size: 2.5rem;
+}
+
+////////////////////////////////////////////////////////////////////
+/////////////////////////// SIDE BAR /////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+// #sideBar {
+//   background-color: rgb(105, 105, 255);
+//   height: 100vh;
+//   width: 20%;
+//   min-width: 200px;
+//   max-width: 400px;
+//   padding: 65px 0 0 0;
+// }
+
+#sideBar {
+  height: 100%;
+  // width: 20%;
+  // min-width: 200px;
+  // max-width: 400px;
+  padding: 120px 0 0 0;
+  margin: 0;
+}
+
+.grow {
+  background-color: #e9345f;
+
+  padding: 13px 5px 5px 5px;
+  border-radius: 10px;
+  height: 49px;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 20px;
+  position: relative;
+  transition: height 0.5s;
+  -webkit-transition: height 0.5s;
+  text-align: center;
+  overflow: hidden;
+
+  padding: 14px 20px 20px 20px;
+}
+.grow:hover {
+  height: 160px;
+}
+
+////////////////////////////////////////////////////////////////////
+/////////////////////////// MAIN CONTENT /////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+#mainContentBox {
+  height: 100%;
+  width: 100%;
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+//////////////////////////Profile Modal//////////////////////////
+
+#profileModal {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.664);
+  z-index: 1;
+}
+
+#profileContent {
+  // height: 80vh;
+  // width: 80vh;
+  background-color: rgba(255, 105, 180, 0.657);
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 800px;
+  height: 85%;
+
+  -webkit-animation: scale-in-tr 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: scale-in-tr 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+#modalProfilePic {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+#modalProfilePicContainer {
+  display: block;
+  float: left;
+}
+
+#modalProfileInfoContainer {
+  position: relative;
+  float: left;
+  top: 0;
+  width: 500px;
+  // height: 200px;
+  display: block;
+  margin: 0 20px 0 20px;
+}
+
+#editProfileModal {
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.664);
+  z-index: 1;
+}
+
+#editProfileModalContent {
+  // height: 80vh;
+  // width: 80vh;
+  background-color: rgba(255, 105, 180, 0.657);
+  background-color: #fefefe;
+  margin: 30% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 400px;
+  height: 50%;
+
+  -webkit-animation: scale-in-tr 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: scale-in-tr 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+//////////////////////Matches Tab///////////////////
+#matchesContentParent,
+#likesContentParent {
+  padding: 1rem 3rem;
+  display: grid;
+
+  -webkit-animation: slide-in-fwd-center 0.4s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-fwd-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.matchesCard,
+.likesCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0.5rem;
+  width: fill;
+  max-height: 400px;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: unset;
+
+  // padding: 20px;
+
+  background-color: rgb(238, 238, 238);
+  border-radius: 20px;
+  border: solid 20px rgb(238, 238, 238);
+}
+
+.matchesCard::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+.likesCard::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+.matchesCardProfilePic,
+.likesCardProfilePic {
+  width: 80%;
+  height: 150px;
+  object-fit: cover;
+  margin: 20px;
+  border-radius: 12px;
+}
+
+@media screen and (min-width: 1950px) {
+  #matchesContentParent,
+  #likesContentParent {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 1700px) and (max-width: 1950px) {
+  #matchesContentParent,
+  #likesContentParent {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 1700px) {
+  #matchesContentParent,
+  #likesContentParent {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+////////////////////////EXPLORE TAB/////////////////////////////////
+
+.exploreCard {
+  max-width: 100%;
+  padding: 80px;
+  text-align: center;
+  background-color: rgb(221, 221, 221);
+  border-radius: 30px;
+}
+
+.exploreCardProfilePic {
+  max-width: 80%;
+  height: 80%;
+  object-fit: cover;
+
+  border-radius: 30px;
+}
+
+////////////////////////////////////////////////////////////////////
+/////////////////////////// CHAT BAR /////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+#chatBar {
+  height: 100%;
+  width: 100%;
+  padding-top: 65px;
+}
+
+///////////////////////////////////////////////////////////////////////
+/////////////////////// RESPONSE GRID SYSTEM //////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+/*  SECTIONS  */
+.section {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+  display: block;
+  float: left;
+  // margin: 20px 0 0 1.6%;
+  text-align: center;
+}
+.col:first-child {
+  margin-left: 0;
+}
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+  content: '';
+  display: table;
+}
+.group:after {
+  clear: both;
+}
+.group {
+  zoom: 1; /* For IE 6/7 */
+}
+/*  GRID OF THREE  */
+.span_3_of_3 {
+  width: 100%;
+}
+.span_2_of_3 {
+  width: 60%;
+}
+.span_1_of_3 {
+  width: 20%;
+}
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 1100px) {
+  .span_3_of_3,
+  .span_1_of_3 {
+    width: 0%;
+    opacity: 0;
+  }
+  .span_2_of_3 {
+    width: 100%;
+  }
+
+  #profileContent {
+    width: 400px;
+  }
+  #modalProfileInfoContainer {
+    width: 300px;
+    text-align: center;
+  }
+  #modalProfilePic {
+    margin: 20px 80px;
+  }
+}
+
+//////////////////////////////////////////
+/////////////Main Content responsive/////////////////@at-root//////////////////////////////////
+
+/* Create three unequal columns that floats next to each other */
+
+.parent {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.div1 {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.div2 {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.div3 {
+  grid-area: 1 / 3 / 2 / 4;
+}
+
+.div1,
+.div2,
+.div3 {
+  margin: 0 2% 0 2%;
+}
+
+////////////////////////////////////////////////////////////////////////////////////ANIMATION KEYFRAMES////////////////
+////////////////////////////////////////////////////////////
+
+/* ----------------------------------------------
+ * Generated by Animista on 2021-6-12 17:3:0
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation scale-in-tr
+ * ----------------------------------------
+ */
+@-webkit-keyframes scale-in-tr {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+@keyframes scale-in-tr {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2021-6-13 22:12:32
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-in-bck-center
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-in-bck-center {
+  0% {
+    -webkit-transform: translateZ(600px);
+    transform: translateZ(600px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-bck-center {
+  0% {
+    -webkit-transform: translateZ(600px);
+    transform: translateZ(600px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2021-6-13 22:18:41
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-in-fwd-center
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-in-fwd-center {
+  0% {
+    -webkit-transform: translateZ(-1400px);
+    transform: translateZ(-1400px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-fwd-center {
+  0% {
+    -webkit-transform: translateZ(-1400px);
+    transform: translateZ(-1400px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
 }

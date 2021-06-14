@@ -1,13 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
-import './index.scss'
+import { Provider } from 'react-redux';
+import './index.scss';
 
-const App = () => {
+import MainContainer from './containers/MainContainer';
+import store from './store';
+
+function App() {
   return (
-    <div>
-      <h1>Hi</h1>
-    </div>
+    <Provider store={store}>
+      <MainContainer></MainContainer>
+    </Provider>
   );
-};
+}
 
 render(<App />, document.getElementById('root'));
