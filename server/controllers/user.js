@@ -43,12 +43,11 @@ class UserController {
       });
   }
 
-  createUser(req, res, next) {
-    return UserModel.create({
+  setupUserWithGithub(req, res, next) {
+    return UserModel.updateWithGithub(res.locals.githubUser.id, {
       ...req.body,
-      githubId: res.locals.githubUser ? res.locals.githubUser.id : null,
     })
-      .then((result) => {
+      .then(() => {
         next();
       })
       .catch((err) => {
@@ -62,10 +61,7 @@ class UserController {
         if (result.rows.length === 1) {
           return;
         }
-        return UserModel.create({
-          ...req.body,
-          githubId: res.locals.githubUser ? res.locals.githubUser.id : null,
-        });
+        return UserModel.createUserWithGithub(res.locals.githubUser.id);
       })
       .then(() => {
         next();
@@ -76,9 +72,20 @@ class UserController {
   }
 
   updateUser(req, res, next) {
-    UserModel.update(req.params.id, req.body)
+    return UserModel.update(req.params.id, req.body)
       .then((data) => {
         // console.log(data);
+        next();
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+
+  explore(req, res, next) {
+    return UserModel.explore(req.query.userId)
+      .then((result) => {
+        res.locals.users = result.rows;
         next();
       })
       .catch((err) => {

@@ -21,6 +21,12 @@ class Match {
     return pool.query(query, [selfId, otherId]);
   }
 
+  getAlreadyLiked(selfId, otherId) {
+    const query = 'SELECT * FROM matches WHERE person1 = $1 AND person2 = $2';
+
+    return pool.query(query, [selfId, otherId]);
+  }
+
   match(selfId, otherId) {
     const query = `UPDATE matches
     SET date_match = NOW()
@@ -32,11 +38,10 @@ class Match {
 
   create(selfId, otherId) {
     const query = `INSERT INTO matches (
-      person1,
-      person2,
-      date_match)
-      VALUES ($1, $2)
-    )`;
+        person1,
+        person2
+      )
+      VALUES ($1, $2)`;
     return pool.query(query, [selfId, otherId]);
   }
 
@@ -48,7 +53,7 @@ class Match {
     return pool.query(query, [id]);
   }
 
-  getIsLiked(id) {
+  getLikedBy(id) {
     const query = `SELECT * FROM matches 
     WHERE date_match IS NULL
     AND person2 = $1`;

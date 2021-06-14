@@ -10,7 +10,7 @@ import ProfileModal from '../components/ProfileModal';
 function mapStateToProps(state) {
   return {
     username: state.onlyDevs.username,
-    profilePic: state.onlyDevs.profilePic,
+    profilePic: state.onlyDevs.profileimgurl,
   };
 }
 
@@ -24,15 +24,15 @@ function MainContainer(props) {
       {/* <div>{props.user}</div> */}
       <NavigationBar state={props}></NavigationBar>
 
-      <div className='parent'>
-        <div className='div1'>
+      <div className="parent">
+        <div className="div1">
           <SideBar></SideBar>
         </div>
-        <div className='div2'>
+        <div className="div2">
           <MainContent></MainContent>
           <ProfileModal></ProfileModal>
         </div>
-        <div className='div3'>
+        <div className="div3">
           <ChatBar></ChatBar>
         </div>
       </div>

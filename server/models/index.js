@@ -2,7 +2,10 @@ const { UserModel } = require('./user');
 const { MatchModel } = require('./match');
 
 const createTables = () => {
-  return Promise.all([UserModel.createTable(), MatchModel.createTable()]);
+  return UserModel.createTable().then(() => {
+    return MatchModel.createTable();
+  });
+  // return Promise.resolve();
 };
 
 module.exports = {

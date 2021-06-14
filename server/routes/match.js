@@ -3,17 +3,21 @@ const { matchController } = require('../controllers');
 
 const router = Router();
 
-// /matches?userId=1 -> req.query.userId
+router.get('/likedBy', matchController.getLikedBy, (req, res) => {
+  res.status(200).json({
+    likedBy: res.locals.likedBy,
+  });
+});
+
 router.get('/', matchController.getMatches, (req, res) => {
   res.status(200).json({
     matches: res.locals.matches,
   });
 });
 
-// /matches/isLiked?userId=1
-router.get('/isLiked', matchController.getIsLiked, (req, res) => {
+router.post('/like', matchController.like, (req, res) => {
   res.status(200).json({
-    user: res.locals.user,
+    match: res.locals.match,
   });
 });
 
