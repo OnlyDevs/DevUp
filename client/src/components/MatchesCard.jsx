@@ -8,13 +8,13 @@ function MatchesCard({
   current_project,
 }) {
   return (
-    <article className='matchesCard'>
+    <article className="matchesCard">
       <div>
         <center>
-          <img className='matchesCardProfilePic' src={profilePic}></img>
+          <img className="matchesCardProfilePic" src={profilePic}></img>
         </center>
       </div>
-      <div className='matchesCardDetails'>
+      <div className="matchesCardDetails">
         <h2>{username}</h2>
         <p style={{ marginTop: '10px' }}>Bio: {bio}</p>
         <p style={{ marginTop: '10px' }}>Languages: {languages}</p>

@@ -12,6 +12,7 @@ router.post(
   (req, res) => {
     res.status(200).json({
       githubToken: res.locals.githubToken,
+      user: res.locals.user,
     });
   }
 );

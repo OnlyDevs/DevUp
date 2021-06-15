@@ -25,13 +25,13 @@ app.use('/auth', authRouter);
 
 // 404
 app.use((req, res) => {
-  res.sendStatus(404);
+  res.status(404).json({});
 });
 
 // error
 app.use((err, req, res, next) => {
   console.log(err);
-  res.sendStatus(500);
+  res.status(500).json({});
 });
 
 // start

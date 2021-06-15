@@ -8,12 +8,12 @@ class User {
     IF NOT EXISTS 
     users (
       id SERIAL PRIMARY KEY, 
-      username VARCHAR NOT NULL UNIQUE, 
-      password VARCHAR NOT NULL, 
+      username VARCHAR UNIQUE, 
       bio VARCHAR, 
       languages VARCHAR,
       current_project VARCHAR,
-      githubId INT UNIQUE
+      githubId INT UNIQUE,
+      profileImgUrl VARCHAR
     )`;
 
     return pool.query(query);
@@ -23,7 +23,6 @@ class User {
     for (let i = 0; i < 10; i++) {
       await this.create({
         username: faker.name.findName(),
-        password: faker.random.word(),
         bio: faker.company.companyName(),
         languages: faker.random.words(),
         current_project: faker.random.word(),
@@ -44,6 +43,10 @@ class User {
   }
 
   getByIds(ids) {
+    if (ids.length === 0) {
+      return Promise.resolve();
+    }
+
     let params = '';
     for (let i = 1; i <= ids.length; i++) {
       params += `$${i}`;
@@ -66,27 +69,32 @@ class User {
     const query = `INSERT INTO 
     users (
       username,
-      password,
       bio,
       languages,
       current_project,
-      githubId)
-      VALUES ($1, $2, $3, $4, $5, $6)`;
+      profileImgUrl
+      )
+      VALUES ($1, $2, $3, $4, $5)`;
     return pool.query(query, [
       params.username,
-      params.password,
       params.bio,
       params.languages,
       params.current_project,
-      params.githubId,
+      params.profileImgUrl,
     ]);
+  }
+
+  createUserWithGithub(githubId) {
+    const query = `INSERT INTO users (githubId) VALUES ($1)`;
+    return pool.query(query, [githubId]);
   }
 
   update(id, params) {
     const query = `UPDATE users
     SET bio = $2, 
     languages = $3, 
-    current_project = $4
+    current_project = $4,
+    profileImgUrl = $5
     WHERE id = $1;
     `;
     return pool.query(query, [
@@ -94,7 +102,29 @@ class User {
       params.bio,
       params.languages,
       params.current_project,
+      params.profileImgUrl,
     ]);
+  }
+
+  updateWithGithub(githubId, params) {
+    const query = `UPDATE users
+    SET username = $2,
+    bio = $3, 
+    languages = $4, 
+    current_project = $5,
+    profileImgUrl = $6
+    WHERE githubId = $1;
+    `;
+    const arr = [
+      githubId,
+      params.username,
+      params.bio,
+      params.languages,
+      params.current_project,
+      params.profileImgUrl,
+    ];
+    // console.log(arr);
+    return pool.query(query, arr);
   }
 }
 

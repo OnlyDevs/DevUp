@@ -1,11 +1,37 @@
-const { userController } = require('../controllers');
+const { userController, authController } = require('../controllers');
 const { Router } = require('express');
 
 const router = Router();
 
-// development
-router.post('/', userController.createUser, (req, res) => {
-  res.status(200).json({});
+router.get(
+  '/github',
+  authController.extractGithubToken,
+  authController.getGithubUser,
+  userController.getUserByGithubId,
+  (req, res) => {
+    res.status(200).json({
+      user: res.locals.user,
+    });
+  }
+);
+
+router.patch(
+  '/setup',
+  authController.extractGithubToken,
+  authController.getGithubUser,
+  userController.setupUserWithGithub,
+  userController.getUserByGithubId,
+  (req, res) => {
+    res.status(200).json({
+      user: res.locals.user,
+    });
+  }
+);
+
+router.get('/explore', userController.explore, (req, res) => {
+  res.status(200).json({
+    users: res.locals.users.filter((user) => !!user.username),
+  });
 });
 
 router.get('/:id', userController.getUserById, (req, res) => {

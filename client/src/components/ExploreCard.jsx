@@ -1,20 +1,20 @@
 import React from 'react';
 
-function ExploreCard({
+const ExploreCard = ({
   username,
   profilePic,
   bio,
   languages,
   current_project,
-}) {
+}) => {
   return (
-    <article className='exploreCard'>
+    <article className="exploreCard">
       <div>
         <center>
-          <img className='exploreCardProfilePic' src={profilePic}></img>
+          <img className="exploreCardProfilePic" src={profilePic}></img>
         </center>
       </div>
-      <div className='exploreCardDetails'>
+      <div className="exploreCardDetails">
         <h2>{username}</h2>
         <p>Bio: {bio}</p>
         <p>Languages: {languages}</p>
@@ -22,6 +22,6 @@ function ExploreCard({
       </div>
     </article>
   );
-}
+};
 
 export default ExploreCard;
