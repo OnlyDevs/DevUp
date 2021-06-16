@@ -1,6 +1,7 @@
-const { MatchModel, UserModel } = require('../models');
+const { MatchModel, UserModel } = require("../models");
 
 class MatchController {
+  //gets all of a specific user's matches
   getMatches(req, res, next) {
     const userId = req.query.userId;
     return MatchModel.getMatches(userId)
@@ -10,7 +11,7 @@ class MatchController {
         if (!matches) {
           throw {
             statusCode: 400,
-            message: 'no matches :(',
+            message: "no matches :(",
           };
         }
 
@@ -46,7 +47,7 @@ class MatchController {
         if (!matches) {
           throw {
             statusCode: 400,
-            message: 'no matches :(',
+            message: "no matches :(",
           };
         }
 

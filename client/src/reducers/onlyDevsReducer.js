@@ -1,13 +1,13 @@
-import * as types from '../actions/actionsTypes';
+import * as types from "../actions/actionsTypes";
 
 const initialState = {
   id: null,
-  username: '',
+  username: "",
   githubToken: null,
-  profilePic: '',
-  bio: '',
-  languages: '',
-  current_project: '',
+  profilePic: "",
+  bio: "",
+  languages: "",
+  current_project: "",
   matches: [],
   likes: [],
   explore: [],
@@ -40,6 +40,7 @@ function onlyDevsReducer(state = initialState, action) {
         githubToken: action.payload,
       };
 
+    //spreads user data from github
     case types.UPDATE_USER:
       return {
         ...state,

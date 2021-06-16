@@ -1,8 +1,9 @@
-const { config } = require('dotenv');
+const { config } = require("dotenv");
 
 config();
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
+//gets environment variables from .env file
+const NODE_ENV = process.env.NODE_ENV || "development";
 const PG_URI = process.env.PG_URI;
 const GH_CLIENT_ID = process.env.GH_CLIENT_ID;
 const GH_CLIENT_SECRET = process.env.GH_CLIENT_SECRET;

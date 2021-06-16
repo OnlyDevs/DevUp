@@ -1,4 +1,4 @@
-const { pool } = require('./db');
+const { pool } = require("./db");
 
 class Match {
   createTable() {
@@ -13,6 +13,7 @@ class Match {
 
   async seed() {}
 
+  //gets all previous matches
   getPrevMatch(selfId, otherId) {
     const query = `SELECT * FROM matches
     WHERE person2 = $1
@@ -21,13 +22,16 @@ class Match {
     return pool.query(query, [selfId, otherId]);
   }
 
+  //
   getAlreadyLiked(selfId, otherId) {
-    const query = 'SELECT * FROM matches WHERE person1 = $1 AND person2 = $2';
+    //see all users you have liked
+    const query = "SELECT * FROM matches WHERE person1 = $1 AND person2 = $2";
 
     return pool.query(query, [selfId, otherId]);
   }
 
   match(selfId, otherId) {
+    //shows all users who liked you back
     const query = `UPDATE matches
     SET date_match = NOW()
     WHERE person2 = $1
@@ -37,6 +41,7 @@ class Match {
   }
 
   create(selfId, otherId) {
+    //adds a row into the matches table with two people who liked each other
     const query = `INSERT INTO matches (
         person1,
         person2
@@ -44,7 +49,7 @@ class Match {
       VALUES ($1, $2)`;
     return pool.query(query, [selfId, otherId]);
   }
-
+  //selects all matches where the specified user is involved in the match
   getMatches(id) {
     const query = `SELECT * FROM matches
     WHERE date_match IS NOT NULL

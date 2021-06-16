@@ -1,10 +1,12 @@
-const { Router } = require('express');
-const { authController, userController } = require('../controllers');
+const { Router } = require("express");
+const { authController, userController } = require("../controllers");
 
 const router = Router();
 
+// something something endpath '/github/ is the redirect from OAuth
+// endpoint received from github callback after login
 router.post(
-  '/github',
+  "/github",
   authController.createGithubToken,
   authController.getGithubUser,
   userController.createUserWithGithub,
@@ -17,4 +19,5 @@ router.post(
   }
 );
 
+// exported as 'router' to index.js where it is exported again as 'authRouter'
 module.exports = router;

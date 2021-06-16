@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import NavigationBar from './NavigationBar';
-import SideBar from './SideBar';
-import MainContent from './MainContent';
-import ChatBar from './ChatBar';
-import ProfileModal from '../components/ProfileModal';
+import NavigationBar from "./NavigationBar";
+import SideBar from "./SideBar";
+import MainContent from "./MainContent";
+import ChatBar from "./ChatBar";
+import ProfileModal from "../components/ProfileModal";
 
 function mapStateToProps(state) {
   return {
@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch) {
 
 function MainContainer(props) {
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{ height: "100%" }}>
       {/* <div>{props.user}</div> */}
       <NavigationBar state={props}></NavigationBar>
 

@@ -1,10 +1,11 @@
-const { userController, authController } = require('../controllers');
-const { Router } = require('express');
+const { userController, authController } = require("../controllers");
+const { Router } = require("express");
 
 const router = Router();
 
+// github OAuth router
 router.get(
-  '/github',
+  "/github",
   authController.extractGithubToken,
   authController.getGithubUser,
   userController.getUserByGithubId,
@@ -15,8 +16,9 @@ router.get(
   }
 );
 
+// patch modifies parts of a resource. Modifies the user in the database
 router.patch(
-  '/setup',
+  "/setup",
   authController.extractGithubToken,
   authController.getGithubUser,
   userController.setupUserWithGithub,
@@ -28,20 +30,23 @@ router.patch(
   }
 );
 
-router.get('/explore', userController.explore, (req, res) => {
+// gets user info from database
+router.get("/explore", userController.explore, (req, res) => {
   res.status(200).json({
     users: res.locals.users.filter((user) => !!user.username),
   });
 });
 
-router.get('/:id', userController.getUserById, (req, res) => {
+// gets specific user from database
+router.get("/:id", userController.getUserById, (req, res) => {
   res.status(200).json({
     user: res.locals.user,
   });
 });
 
+// updates specific parts of user in database
 router.patch(
-  '/:id',
+  "/:id",
   userController.updateUser,
   userController.getUserById,
   (req, res) => {

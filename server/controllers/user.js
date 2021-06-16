@@ -1,5 +1,6 @@
-const { UserModel } = require('../models');
+const { UserModel } = require("../models");
 
+// controller for
 class UserController {
   getUserById(req, res, next) {
     UserModel.getById(req.params.id)
@@ -9,7 +10,7 @@ class UserController {
         if (!user) {
           throw {
             statusCode: 400,
-            message: 'user not found',
+            message: "user not found",
           };
         }
 
@@ -30,7 +31,7 @@ class UserController {
         if (!user) {
           throw {
             statusCode: 400,
-            message: 'user not found',
+            message: "user not found",
           };
         }
 

@@ -1,7 +1,9 @@
-const { pool } = require('./db');
-const faker = require('faker');
+const { pool } = require("./db");
+const faker = require("faker");
 
+// user class that contains the functions to CRUD users
 class User {
+  // sql query to create users table
   createTable() {
     const query = `
     CREATE TABLE 
@@ -19,6 +21,7 @@ class User {
     return pool.query(query);
   }
 
+  // generates seed using fake information from faker library
   async seed() {
     for (let i = 0; i < 10; i++) {
       await this.create({
@@ -30,28 +33,31 @@ class User {
     }
   }
 
+  //query to select specific user
   getById(id) {
-    const query = 'SELECT * FROM users WHERE users.id = $1';
+    const query = "SELECT * FROM users WHERE users.id = $1";
 
     return pool.query(query, [id]);
   }
 
+  // query to select specific user by their github id
   getByGithubId(id) {
-    const query = 'SELECT * FROM users WHERE users.githubId = $1';
+    const query = "SELECT * FROM users WHERE users.githubId = $1";
 
     return pool.query(query, [id]);
   }
 
+  // batch query for a table of users by their ID
   getByIds(ids) {
     if (ids.length === 0) {
       return Promise.resolve();
     }
 
-    let params = '';
+    let params = "";
     for (let i = 1; i <= ids.length; i++) {
       params += `$${i}`;
       if (i < ids.length) {
-        params += ',';
+        params += ",";
       }
     }
     const query = `SELECT * FROM users WHERE id IN (${params})`;
@@ -59,12 +65,14 @@ class User {
     return pool.query(query, [...ids]);
   }
 
+  // queries the database for users other than the current user
   explore(id) {
-    const query = 'SELECT * FROM users WHERE users.id != $1';
+    const query = "SELECT * FROM users WHERE users.id != $1";
 
     return pool.query(query, [id]);
   }
 
+  // creates a new user based on information provided by the user themselves
   create(params) {
     const query = `INSERT INTO 
     users (
@@ -84,11 +92,13 @@ class User {
     ]);
   }
 
+  // creates a new user based on information retrieved from github
   createUserWithGithub(githubId) {
     const query = `INSERT INTO users (githubId) VALUES ($1)`;
     return pool.query(query, [githubId]);
   }
 
+  // updates a specific user with new information provided by the user themselves
   update(id, params) {
     const query = `UPDATE users
     SET bio = $2, 
@@ -106,6 +116,7 @@ class User {
     ]);
   }
 
+  // updates a spefici user found by github ID with information provided by github
   updateWithGithub(githubId, params) {
     const query = `UPDATE users
     SET username = $2,
